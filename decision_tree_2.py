@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------
-# AUTHOR: your name
-# FILENAME: title of the source file
-# SPECIFICATION: description of the program
+# AUTHOR: Irfan Iqbal
+# FILENAME: decision_tree_2.py
+# SPECIFICATION: program using decision trees to make predictions
 # FOR: CS 4210- Assignment #2
-# TIME SPENT: how long it took you to complete the assignment
+# TIME SPENT: 20 min
 #-----------------------------------------------------------*/
 
 #IMPORTANT NOTE: DO NOT USE ANY ADVANCED PYTHON LIBRARY TO COMPLETE THIS CODE SUCH AS numpy OR pandas. You have to work here only with standard
@@ -43,6 +43,8 @@ for ds in dataSets:
             else:
                 xRow.append(2)
         X.append(xRow)
+
+
     #transform the original categorical training classes to numbers and add to the vector Y. For instance Yes = 1, No = 2, so Y = [1, 1, 2, 2, ...]
     #--> add your Python code here
     for row in dbTraining:
@@ -70,26 +72,27 @@ for ds in dataSets:
 
 
        numTrue=0
-       X_test=[]
        Y_test=0
+
        for data in dbTest:
+           X_test = []
            #transform the features of the test instances to numbers following the same strategy done during training,
            #and then use the decision tree to make the class prediction. For instance: class_predicted = clf.predict([[3, 1, 2, 1]])[0]
            #where [0] is used to get an integer as the predicted class label so that you can compare it with the true label
            #--> add your Python code here
 
-           xRow = []
+
            for i, x in enumerate(data):
                if i == 4: continue
                if x == "Young" or x == "Myope" or x == "Yes" or x == "Normal":
-                   xRow.append(1)
+                   X_test.append(1)
                elif x == "Prepresbyopic":
-                   xRow.append(3)
+                   X_test.append(3)
                else:
-                   xRow.append(2)
-           X_test.append(xRow)
+                   X_test.append(2)
 
-           if row[-1] == "Yes":
+
+           if data[-1] == "Yes":
                Y_test=1
            else:
                Y_test=2
@@ -97,7 +100,8 @@ for ds in dataSets:
            #compare the prediction with the true label (located at data[4]) of the test instance to start calculating the accuracy.
            #--> add your Python code here
 
-           if clf.predict(X_test)[-1]==Y_test:
+
+           if clf.predict([X_test])[0]==Y_test:
                numTrue+=1
            accuracy.append(numTrue/len(data))
 
